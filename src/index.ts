@@ -91,7 +91,15 @@ export function apply(ctx: Context): void {
       path: API_ROOT,
       handler: (request, response) => {
         const pathname = new URL(request.url ?? '/', 'http://localhost').pathname
-        const file = basename(decodeURIComponent(pathname.slice(API_ROOT.length + 1)))
+        // 解码用户可控路径；非法百分号/编码（如 %zz、截断的 UTF-8）会让
+        // decodeURIComponent 抛 URIError。在输入边界拦截，回 404 而非让异常外抛
+        // （即使 webserver 有 catch 兜底，400 日志噪音也应避免）。
+        let file: string
+        try {
+          file = basename(decodeURIComponent(pathname.slice(API_ROOT.length + 1)))
+        } catch {
+          response.writeHead(404); response.end('not found'); return
+        }
         if (extname(file) !== '.png' || memeByFile(file) === undefined) {
           response.writeHead(404); response.end('not found'); return
         }
