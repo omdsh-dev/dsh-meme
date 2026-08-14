@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "让 agent 在回复正文内联渲染表情包：inject_meme 工具 + systemPrompt 引导 + httpServer 图片路由",
+  "description": "让 agent 在回复正文内联渲染表情包：inject_meme 工具 + systemPrompt 引导 + webServer 图片路由",
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
