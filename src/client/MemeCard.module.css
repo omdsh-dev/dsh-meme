@@ -1,0 +1,18 @@
+.card {
+  display: inline-block;
+  margin: 8px 0;
+  width: min(160px, 48vw);
+}
+.card span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--dsw-alias-label-tertiary, #888);
+}
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
